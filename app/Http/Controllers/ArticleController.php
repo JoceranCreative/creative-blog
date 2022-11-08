@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
     // tous les articles
+
     public function index()
     {
+        //dd(Article::with('category')->latest()->get());
         return view('articles.index', [
-            'articles' => Article::latest()->filter(request(['tag', 'search']))->paginate(6)
+            'articles' => Article::with('category')->latest()->filter(request(['tag', 'search']))->paginate(6)
         ]);
     }
 
@@ -42,11 +45,12 @@ class ArticleController extends Controller
             'text' => 'required|max:2000'
         ]);
 
+        $formFields['user_id'] = Auth::user()->id;
+        $formFields['author'] = Auth::user()->name;
+
         if ($request->hasFile('illustration')) {
             $formFields['illustration'] = $request->file('illustration')->store('illustrations', 'public');
         }
-
-        //$formFields['user_id'] = auth()->id();
 
         Article::create($formFields);
 
@@ -61,9 +65,10 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article)
     {
 
+        dd(auth());
+
         $formFields = $request->validate([
             'title' => 'required|max:255',
-            'author' => 'required',
             'tags' => 'required',
             'text' => 'required|max:2000'
         ]);

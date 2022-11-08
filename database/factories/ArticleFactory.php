@@ -17,6 +17,8 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
+            'user_id' => '1',
+            'category_id' => random_int(1, 4),
             'title' => fake()->sentence(),
             'tags' => 'formation, alternance, creativité, développeur',
             'author' => fake()->name(),

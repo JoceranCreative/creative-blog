@@ -12,6 +12,8 @@ class Article extends Model
     protected $fillable = [
         'title',
         'author',
+        'user_id',
+        'category_id',
         'tags',
         'text'
     ];
@@ -28,5 +30,15 @@ class Article extends Model
                 ->where('title', 'like', '%' . request('search') . '%')
                 ->orWhere('tags', 'like', '%' . request('search') . '%');
         }
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
