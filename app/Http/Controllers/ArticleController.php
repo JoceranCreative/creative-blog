@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,18 +30,17 @@ class ArticleController extends Controller
     //creation d'article
     public function create()
     {
-        return view('articles.create');
+        return view('articles.create', [
+            'categories' => Category::all()
+        ]);
     }
 
     // store avec injection de request
     public function store(Request $request)
     {
-
-        // vérifier la doc + demander à Julien
-        //https://laravel.com/docs/9.x/validation
-
         $formFields = $request->validate([
             'title' => 'required|unique:articles|max:255',
+            'category_id' => 'required',
             'tags' => 'required',
             'text' => 'required|max:2000'
         ]);
@@ -59,16 +59,18 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
-        return view('articles.edit', ['article' => $article]);
+        return view('articles.edit', [
+            'article' => $article,
+            'categories' => Category::all()
+        ]);
     }
 
     public function update(Request $request, Article $article)
     {
 
-        dd(auth());
-
         $formFields = $request->validate([
             'title' => 'required|max:255',
+            'category_id' => 'required',
             'tags' => 'required',
             'text' => 'required|max:2000'
         ]);
@@ -79,7 +81,7 @@ class ArticleController extends Controller
 
         $article->update($formFields);
 
-        return back()->with('message', 'Article édité !');
+        return redirect('/')->with('message', 'Article édité !');
     }
 
     public function delete(Article $article)

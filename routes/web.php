@@ -13,10 +13,10 @@ Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 Route::post('/users', [UserController::class, 'store']);
 
 Route::get('/article/{article}', [ArticleController::class, 'show']);
-Route::post('/articles', [ArticleController::class, 'store']);
+Route::post('/articles/store', [ArticleController::class, 'store']);
 Route::get('/articles/create', [ArticleController::class, 'create'])->middleware('auth');
 Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->middleware('auth');
-Route::put('/articles/{article}', [ArticleController::class, 'update'])->middleware('auth');
+Route::put('/articles/{article}/update', [ArticleController::class, 'update'])->middleware('auth');
 Route::delete('/articles/{article}', [ArticleController::class, 'delete'])->middleware('auth');
 
 Route::post('/logout', [UserController::class, 'logout']);
