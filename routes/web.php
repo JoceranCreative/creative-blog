@@ -8,15 +8,17 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArticleController;
 
 Route::get('/', [ArticleController::class, 'index']);
+Route::get('/article/{article}', [ArticleController::class, 'show']);
 
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 Route::post('/users', [UserController::class, 'store']);
 
-Route::get('/article/{article}', [ArticleController::class, 'show']);
+
 Route::post('/articles/store', [ArticleController::class, 'store']);
+Route::get('/dashboard', [ArticleController::class, 'manage'])->middleware('auth');
 Route::get('/articles/create', [ArticleController::class, 'create'])->middleware('auth');
 Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->middleware('auth');
-Route::put('/articles/{article}/update', [ArticleController::class, 'update'])->middleware('auth');
+Route::post('/articles/{article}/update', [ArticleController::class, 'update'])->middleware('auth');
 Route::delete('/articles/{article}', [ArticleController::class, 'delete'])->middleware('auth');
 
 Route::post('/logout', [UserController::class, 'logout']);

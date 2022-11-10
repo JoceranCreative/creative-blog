@@ -41,10 +41,13 @@
                         </span>
                     </li>
                     <li>
-                        <a href="/articles/manage" class="hover:text-laravel">
-                            <i class="fa-solid fa-gear"></i>
-                            Gêrer les articles
-                        </a>
+                        <form class="inline" method="get" action="/dashboard">
+                            @csrf
+                            <button class="" type="submit">
+                                <i class="fa-solid fa-gear"></i>
+                                Gérer les articles
+                            </button>
+                        </form>
                     </li>
                     <li>
                         <form class="inline" method="POST" action="/logout">

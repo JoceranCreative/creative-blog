@@ -9,7 +9,7 @@
             @auth
             <a href="/articles/create" class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black">Publier un nouvelle article</a>
             @else
-            <a href="register.html" class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black">Inscrivez vous pour publier</a>
+            <a href="/register" class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black">Inscrivez vous pour publier</a>
             @endauth
         </div>
     </div>

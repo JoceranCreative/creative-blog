@@ -20,7 +20,6 @@ class ArticleFactory extends Factory
             'user_id' => '1',
             'category_id' => random_int(1, 4),
             'title' => fake()->sentence(),
-            'tags' => 'formation, alternance, creativité, développeur',
             'author' => fake()->name(),
             'text' => fake()->text(250),
         ];

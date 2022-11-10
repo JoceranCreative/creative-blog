@@ -12,7 +12,7 @@
 
             @csrf
             {{-- A utiliser pour chaque formulaire ! --}}
-            @method('PUT')
+            @method('POST')
 
             <div class="mb-6">
                 <label for="title" class="inline-block text-lg mb-2">Titre</label>
@@ -24,22 +24,27 @@
                 @enderror
             </div>
 
+            {{-- CATEGORY --}}
             <div class="mb-6">
                 <label class="inline-block text-lg mb-2" for="category_id">Catégorie : </label>
                 <select name="category_id">
                     @foreach($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                        <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
                 </select>
             </div>
 
+            {{-- TAGS --}}
             <div class="mb-6">
-                <label for="tags" class="inline-block text-lg mb-2">
-                    Tags (séparés par une , )
-                </label>
-                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="tags" placeholder="Exemple: Alternance, Formation, Bon plan, etc" value="{{$article->tags}}" />
+                <label for="tags" class="inline-block text-lg mb-2">Tags : </label>
+                <select name="tags" multiple>
+                    @foreach($tags as $tag)
+                        <option value="{{$tag->name}}">{{$tag->name}}</option>
+                    @endforeach
+                </select>
             </div>
 
+            {{-- ILLUSTRATION --}}
             <div class="mb-6">
                 <img class="w-48 mr-6 mb-6" src="{{$article->illustration ? 
                     asset('storage/' . $article->illustration):
@@ -56,6 +61,7 @@
                 @enderror
             </div>
 
+            {{-- TEXT --}}
             <div class="mb-6">
                 <label for="text" class="inline-block text-lg mb-2">
                     Texte
